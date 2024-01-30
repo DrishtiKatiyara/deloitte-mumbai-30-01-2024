@@ -1,4 +1,4 @@
-function Shape() {
+function Shape(radius) {
     if (this.constructor === Shape) {
         throw new Error("Cannot instantiate abstract class Shape");
     }
@@ -7,16 +7,18 @@ function Shape() {
     }
 }
 
-function Circle() {
-    Shape.call(this);
+function Circle(radius) {
+    Shape.call(this, radius);
+    this.radius = radius
     this.draw = function() {
         console.log("Drawing a Circle");
+        console.log(this.radius);
     }
 }
 Circle.prototype = Object.create(Shape.prototype);
 Circle.prototype.constructor = Circle;
 
-let circle = new Circle();
+let circle = new Circle(10);
 circle.draw(); // "Drawing a Circle"
 let shape = new Shape(); // Error: Cannot instantiate abstract class Shape
 
